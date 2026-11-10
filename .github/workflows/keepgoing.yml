@@ -1,0 +1,35 @@
+name: Keepgoing formula
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    name: Fresh macOS install
+    runs-on: macos-15
+    timeout-minutes: 10
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_ANALYTICS: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Use the checked-out formula
+        run: |
+          tap_dir="$(brew --repository)/Library/Taps/connorburgess/homebrew-tap"
+          test ! -e "$tap_dir"
+          mkdir -p "$(dirname "$tap_dir")"
+          ln -s "$GITHUB_WORKSPACE" "$tap_dir"
+      - name: Install and test the release
+        run: |
+          uname -m
+          brew install connorburgess/tap/keepgoing
+          brew test connorburgess/tap/keepgoing
+          keepgoing version
