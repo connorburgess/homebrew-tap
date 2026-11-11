@@ -1,28 +1,28 @@
 class Keepgoing < Formula
   desc "Keep long-running coding-agent loops going"
   homepage "https://github.com/connorburgess/keepgoing-agents"
-  version "0.1.2"
+  version "0.1.3"
   license "Apache-2.0"
 
   on_macos do
     on_arm do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.2/keepgoing_0.1.2_darwin_arm64.tar.gz"
-      sha256 "b7a6a7ef4bf498004b3e613da698399061f5fd5707d9c0f46f6e0571362b1b92"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.3/keepgoing_0.1.3_darwin_arm64.tar.gz"
+      sha256 "7907257407d0bb89a6696f05dea0dff6ee1052341432b466e3ccf9c53170a83a"
     end
     on_intel do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.2/keepgoing_0.1.2_darwin_amd64.tar.gz"
-      sha256 "35de4f0db6e1cddad5936d1276f55203445d8b8e2e0dccfcb4906af295b2e93e"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.3/keepgoing_0.1.3_darwin_amd64.tar.gz"
+      sha256 "c69244ac440aa8da5535e522d9033f94d5184460cfd158f0b38fd33e27328129"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.2/keepgoing_0.1.2_linux_arm64.tar.gz"
-      sha256 "ea3c38f240ecb19203eb4e349915986fe71ba6f7b6ae097c1a6f549f1053cc1d"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.3/keepgoing_0.1.3_linux_arm64.tar.gz"
+      sha256 "49d03c4a7a8c8f3a3a6efa428909310e4f5bc986f55f6f9816a021862dcc65f1"
     end
     on_intel do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.2/keepgoing_0.1.2_linux_amd64.tar.gz"
-      sha256 "343a210ee38d41d964f20afca6380292fdba33e46220d863f5cb97534378f1b5"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.3/keepgoing_0.1.3_linux_amd64.tar.gz"
+      sha256 "ffd1f4cbdb3d1ac58bb366affd6bb7e9e2b48cb6d9fe5f0e40ba0884f593e77e"
     end
   end
 
@@ -32,6 +32,9 @@ class Keepgoing < Formula
 
   test do
     assert_match "v#{version}", shell_output("#{bin}/keepgoing version")
-    assert_match "task-file", shell_output("#{bin}/keepgoing init --help 2>&1")
+    help = shell_output("#{bin}/keepgoing init --help 2>&1")
+    assert_match "task-file", help
+    assert_match "max-sends", help
+    assert_match "state-dir", shell_output("#{bin}/keepgoing timeline --help 2>&1")
   end
 end
