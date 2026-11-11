@@ -36,7 +36,8 @@ class Keepgoing < Formula
     assert_match "task-file", help
     assert_match "max-sends", help
     assert_match "state-dir", shell_output("#{bin}/keepgoing timeline --help 2>&1")
-    assert_match "private", shell_output("#{bin}/keepgoing goal show --help 2>&1")
+    # v0.1.4 prints goal help with the usage exit code; assert that exact contract.
+    assert_match "private", shell_output("#{bin}/keepgoing goal show --help 2>&1", 2)
     assert_match "registry", shell_output("#{bin}/keepgoing client status --help 2>&1")
     assert_match "thread", shell_output("#{bin}/keepgoing transfer preview --help 2>&1")
   end
