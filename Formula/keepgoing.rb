@@ -1,28 +1,28 @@
 class Keepgoing < Formula
   desc "Keep long-running coding-agent loops going"
   homepage "https://github.com/connorburgess/keepgoing-agents"
-  version "0.1.4"
+  version "0.1.5"
   license "Apache-2.0"
 
   on_macos do
     on_arm do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.4/keepgoing_0.1.4_darwin_arm64.tar.gz"
-      sha256 "2e4dbc66d54ce6be0026476c8a5c38d93171e019c055e66278aaea13b6419491"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.5/keepgoing_0.1.5_darwin_arm64.tar.gz"
+      sha256 "cbaf75cd21069407a4144552d1f0bf3f777988917c196f90f2f0e48c4bb181bf"
     end
     on_intel do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.4/keepgoing_0.1.4_darwin_amd64.tar.gz"
-      sha256 "e798b84c03d9f67c0792ca6da951e3e5e9cd3e6e83507b9b1a198cf1e4042ed0"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.5/keepgoing_0.1.5_darwin_amd64.tar.gz"
+      sha256 "621e22a450775d1aace7aa487ca03ba927a1942a34e4a47a056777a1e515f82a"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.4/keepgoing_0.1.4_linux_arm64.tar.gz"
-      sha256 "7b8576536202353c5aa3a2624492dc2949c675605c23d4e0a58be0cfbb2ad98b"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.5/keepgoing_0.1.5_linux_arm64.tar.gz"
+      sha256 "f963c3ff6b0e36b612ee9dcea32aed21b2f89da918ec323a6525c3738194ea2c"
     end
     on_intel do
-      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.4/keepgoing_0.1.4_linux_amd64.tar.gz"
-      sha256 "5d1b7be7d204dfff7773907429da7e8594633a55786dea110d02c4211e433041"
+      url "https://github.com/connorburgess/keepgoing-agents/releases/download/v0.1.5/keepgoing_0.1.5_linux_amd64.tar.gz"
+      sha256 "19e79ad5042017eb3e3f486c8176c12385ce75cb8872dc845b31a44ed367ea36"
     end
   end
 
@@ -34,10 +34,10 @@ class Keepgoing < Formula
     assert_match "v#{version}", shell_output("#{bin}/keepgoing version")
     help = shell_output("#{bin}/keepgoing init --help 2>&1")
     assert_match "task-file", help
+    assert_match "with-goal", help
     assert_match "max-sends", help
     assert_match "state-dir", shell_output("#{bin}/keepgoing timeline --help 2>&1")
-    # v0.1.4 prints goal help with the usage exit code; assert that exact contract.
-    assert_match "private", shell_output("#{bin}/keepgoing goal show --help 2>&1", 2)
+    assert_match "private", shell_output("#{bin}/keepgoing goal show --help 2>&1")
     assert_match "registry", shell_output("#{bin}/keepgoing client status --help 2>&1")
     assert_match "thread", shell_output("#{bin}/keepgoing transfer preview --help 2>&1")
   end
